@@ -1,4 +1,10 @@
-require('dotenv').config({ quiet: true });
+const dotenv = require('dotenv');
+
+const dotenvOptions = { quiet: true };
+if (process.env.DOTENV_CONFIG_PATH) {
+  dotenvOptions.path = process.env.DOTENV_CONFIG_PATH;
+}
+dotenv.config(dotenvOptions);
 
 const environment = process.env.NODE_ENV || 'development';
 const port = Number.parseInt(process.env.PORT || '3000', 10);
