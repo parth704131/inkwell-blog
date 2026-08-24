@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: inkwell-migration
+  namespace: inkwell
+spec:
+  backoffLimit: 2
+  template:
+    metadata:
+      labels:
+        app: inkwell-migration
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migration
+          image: inkwell-blog:local
+          imagePullPolicy: Never
+          command:
+            - npm
+            - run
+            - db:migrate
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: POSTGRES_PASSWORD
+            - name: DATABASE_URL
+              value: postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres:5432/$(POSTGRES_DB)
+            - name: DATABASE_SSL
+              value: "false"
