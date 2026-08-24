@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const compression = require('compression');
 const morgan = require('morgan');
 const config = require('./config/env');
+const healthRoutes = require('./routes/health.routes');
 const pageRoutes = require('./routes/page.routes');
 const viewLocals = require('./middleware/view-locals');
 const asyncHandler = require('./utils/async-handler');
@@ -22,6 +23,7 @@ function createApp() {
   app.use(express.static(path.join(__dirname, '..', 'public'), {
     maxAge: config.isProduction ? '7d' : 0
   }));
+  app.use(healthRoutes);
   app.use(asyncHandler(viewLocals));
   app.use(pageRoutes);
   app.use(notFound);

@@ -1,0 +1,40 @@
+services:
+  app:
+    build:
+      context: .
+    image: inkwell-blog:local
+    ports:
+      - "${APP_PORT:-3001}:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-inkwell}:${POSTGRES_PASSWORD:-inkwell}@db:5432/${POSTGRES_DB:-inkwell}
+      DATABASE_SSL: "false"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--output-document=-", "http://127.0.0.1:3000/health/ready"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-inkwell}
+      POSTGRES_USER: ${POSTGRES_USER:-inkwell}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-inkwell}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-inkwell} -d ${POSTGRES_DB:-inkwell}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  postgres-data:

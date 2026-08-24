@@ -11,6 +11,8 @@ const server = spawn(process.execPath, ['src/server.js'], {
 });
 
 const routes = [
+  ['/health/live', 200],
+  ['/health/ready', 200],
   ['/', 200],
   ['/stories?category=design', 200],
   ['/stories?q=technology', 200],
