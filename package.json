@@ -8,6 +8,8 @@
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
     "db:create": "createdb inkwell",
+    "db:migrate": "node src/database/run-migrations.js",
+    "db:seed": "node src/database/run-seed.js",
     "check": "find src scripts -name '*.js' -print0 | xargs -0 -n1 node --check",
     "test": "node scripts/smoke-test.js"
   },
