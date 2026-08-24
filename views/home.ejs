@@ -1,0 +1,40 @@
+<%- include('partials/head') %>
+<main id="main-content">
+  <section class="hero container">
+    <div class="hero-copy">
+      <span class="eyebrow">Independent ideas, thoughtfully told</span>
+      <h1>Stories for<br><em>curious minds.</em></h1>
+      <p>A journal about design, technology, culture, and the quiet art of living with intention.</p>
+      <a class="text-link" href="/stories">Explore all stories <span>→</span></a>
+    </div>
+    <div class="hero-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+  </section>
+
+  <% if (featured) { %>
+    <section class="container featured-section">
+      <div class="section-heading"><span class="eyebrow">Featured story</span><span class="line"></span></div>
+      <article class="featured-card">
+        <a class="featured-image" href="/stories/<%= featured.slug %>"><img src="<%= featured.imageUrl %>" alt="" width="1200" height="850"></a>
+        <div class="featured-copy">
+          <a class="category" style="--category-color: <%= featured.category.color %>" href="/stories?category=<%= featured.category.slug %>"><%= featured.category.name %></a>
+          <h2><a href="/stories/<%= featured.slug %>"><%= featured.title %></a></h2>
+          <p><%= featured.excerpt %></p>
+          <div class="author-row"><img src="<%= featured.author.avatarUrl %>" alt="<%= featured.author.name %>" width="44" height="44"><div><strong><%= featured.author.name %></strong><span><%= formatDate(featured.publishedAt) %> · <%= featured.readingTimeLabel %></span></div></div>
+          <a class="round-link" href="/stories/<%= featured.slug %>" aria-label="Read <%= featured.title %>">→</a>
+        </div>
+      </article>
+    </section>
+  <% } %>
+
+  <section class="container latest-section">
+    <div class="section-title"><div><span class="eyebrow">Fresh from the journal</span><h2>Latest stories</h2></div><a class="text-link" href="/stories">View all stories <span>→</span></a></div>
+    <div class="story-grid"><% posts.forEach((post) => { %><%- include('partials/card', { post }) %><% }) %></div>
+  </section>
+
+  <section class="topics-section">
+    <div class="container"><div class="section-title"><div><span class="eyebrow">Find your next idea</span><h2>Browse by topic</h2></div></div>
+      <div class="topic-grid"><% categories.forEach((item, index) => { %><a class="topic-card" href="/stories?category=<%= item.slug %>"><span>0<%= index + 1 %></span><div><h3><%= item.name %></h3><p><%= item.postCount %> <%= item.postCount === 1 ? 'story' : 'stories' %></p></div><b>↗</b></a><% }) %></div>
+    </div>
+  </section>
+</main>
+<%- include('partials/footer') %>

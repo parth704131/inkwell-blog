@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="<%= description %>">
+  <meta name="theme-color" content="#f7f4ee">
+  <title><%= title %> · Inkwell</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="Inkwell home">Ink<span>well.</span></a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a class="<%= currentPath === '/' ? 'active' : '' %>" href="/">Home</a>
+        <a class="<%= currentPath.startsWith('/stories') ? 'active' : '' %>" href="/stories">Stories</a>
+        <a class="<%= currentPath === '/about' ? 'active' : '' %>" href="/about">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button search-toggle" type="button" aria-label="Open search" aria-expanded="false">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+        </button>
+        <a class="button button-small" href="#newsletter">Subscribe</a>
+        <button class="menu-toggle icon-button" type="button" aria-label="Open menu" aria-expanded="false">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+        </button>
+      </div>
+    </div>
+    <div class="search-panel" hidden>
+      <form class="container search-form" action="/stories" method="get" role="search">
+        <label class="sr-only" for="site-search">Search stories</label>
+        <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+        <input id="site-search" name="q" type="search" placeholder="Search stories, ideas, and topics…" autocomplete="off">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+    <nav class="mobile-nav" aria-label="Mobile navigation" hidden>
+      <a href="/">Home</a><a href="/stories">Stories</a><a href="/about">About</a>
+    </nav>
+  </header>

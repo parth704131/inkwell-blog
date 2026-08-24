@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Test output and caches
+coverage/
+.nyc_output/
+.cache/
+.eslintcache
+
+# Runtime files
+*.pid
+*.pid.lock
+
+# Legacy local SQLite files
+data/*.db
+data/*.db-shm
+data/*.db-wal
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo

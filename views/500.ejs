@@ -1,0 +1,1 @@
+<%- include('partials/head') %><main id="main-content" class="error-page container"><span>500</span><h1>Something went wrong.</h1><p>We could not load this page right now. Please try again in a moment.</p><a class="button" href="/">Return home</a><% if (typeof error !== 'undefined' && error) { %><pre><%= error.stack %></pre><% } %></main><%- include('partials/footer') %>

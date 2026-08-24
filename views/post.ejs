@@ -1,0 +1,15 @@
+<%- include('partials/head') %>
+<main id="main-content">
+  <article>
+    <header class="article-header container-narrow">
+      <a class="category" style="--category-color: <%= post.category.color %>" href="/stories?category=<%= post.category.slug %>"><%= post.category.name %></a>
+      <h1><%= post.title %></h1><p class="article-deck"><%= post.excerpt %></p>
+      <div class="article-byline"><img src="<%= post.author.avatarUrl %>" alt="<%= post.author.name %>" width="52" height="52"><div><strong>By <%= post.author.name %></strong><span><%= formatDate(post.publishedAt) %> · <%= post.readingTimeLabel %></span></div></div>
+    </header>
+    <figure class="article-hero container"><img src="<%= post.imageUrl %>" alt="" width="1400" height="850"></figure>
+    <div class="article-layout container-narrow"><aside class="share-links" aria-label="Share this article"><span>Share</span><a href="https://twitter.com/intent/tweet?text=<%= encodeURIComponent(post.title) %>" aria-label="Share on X">X</a><a href="mailto:?subject=<%= encodeURIComponent(post.title) %>" aria-label="Share by email">@</a></aside><div class="article-content"><%- post.content %></div></div>
+    <div class="author-box container-narrow"><img src="<%= post.author.avatarUrl %>" alt="<%= post.author.name %>" width="76" height="76"><div><span>Written by</span><h3><%= post.author.name %></h3><p><%= post.author.bio %></p></div></div>
+  </article>
+  <% if (related.length) { %><section class="container related-section"><div class="section-title"><div><span class="eyebrow">Keep reading</span><h2>Related stories</h2></div></div><div class="story-grid"><% related.forEach((post) => { %><%- include('partials/card', { post }) %><% }) %></div></section><% } %>
+</main>
+<%- include('partials/footer') %>

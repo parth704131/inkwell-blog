@@ -1,0 +1,11 @@
+<article class="story-card">
+  <a class="card-image" href="/stories/<%= post.slug %>" aria-label="Read <%= post.title %>">
+    <img src="<%= post.imageUrl %>" alt="" loading="lazy" width="800" height="520">
+  </a>
+  <div class="card-body">
+    <a class="category" style="--category-color: <%= post.category.color %>" href="/stories?category=<%= post.category.slug %>"><%= post.category.name %></a>
+    <h3><a href="/stories/<%= post.slug %>"><%= post.title %></a></h3>
+    <p><%= post.excerpt %></p>
+    <div class="story-meta"><span><%= post.author.name %></span><i></i><time datetime="<%= post.publishedAt %>"><%= formatDate(post.publishedAt) %></time><i></i><span><%= post.readingTimeLabel %></span></div>
+  </div>
+</article>

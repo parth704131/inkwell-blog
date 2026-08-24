@@ -1,0 +1,11 @@
+<%- include('partials/head') %>
+<main id="main-content" class="container archive-page">
+  <header class="page-header"><span class="eyebrow">The journal</span><h1><%= query ? 'Search results' : 'All stories' %></h1><p><%= query ? `Stories matching “${query}”` : 'Ideas, observations, and useful perspectives for curious people.' %></p></header>
+  <div class="filter-row">
+    <a class="<%= !category ? 'selected' : '' %>" href="/stories">All</a>
+    <% categories.forEach((item) => { %><a class="<%= category === item.slug ? 'selected' : '' %>" href="/stories?category=<%= item.slug %>"><%= item.name %></a><% }) %>
+  </div>
+  <% if (posts.length) { %><div class="story-grid archive-grid"><% posts.forEach((post) => { %><%- include('partials/card', { post }) %><% }) %></div>
+  <% } else { %><div class="empty-state"><span>✦</span><h2>No stories found</h2><p>Try another search or explore all of our stories.</p><a class="button" href="/stories">Browse all stories</a></div><% } %>
+</main>
+<%- include('partials/footer') %>
